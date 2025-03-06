@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Arcadia';
+    src: url('/fonts/Arcadia.woff2') format('woff2'),
+         url('/fonts/Arcadia.woff') format('woff'),
+         url('/fonts/Arcadia.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  body {
+    font-family: 'Arcadia', sans-serif;
+  }
+  
