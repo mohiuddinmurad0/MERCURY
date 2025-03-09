@@ -21,18 +21,17 @@ const TransactionsPage = () => {
 
       <div className="overflow-x-auto">
         <table className="w-full text-left">
-          {/* Table Head */}
+         
           <thead>
             <tr className="text-gray-700 text-sm">
-              <th className="p-3 ">Date</th>
-              <th className="p-3 ">To Email</th>
-              <th className="p-3 ">Amount</th>
-              <th className="p-3 ">Description</th>
-              <th className="p-3 ">Status</th>
+              <th className="p-3 text-left">Date</th>
+              <th className="p-3 text-left">To Email</th>
+              <th className="p-3 text-left">Amount</th>
+              <th className="p-3 text-left">Description</th>
+              <th className="p-3 text-left">Status</th>
             </tr>
           </thead>
 
-       
           <tbody>
             {[...userTransactions]
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
