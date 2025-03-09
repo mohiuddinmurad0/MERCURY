@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Send, ArrowLeft, ArrowRightLeft, Plus, Receipt, FileText, Settings } from 'lucide-react';
 import MainBalance from './MainBalance';
 import TransactionsPage from './TransactionsPage';
 import Task from './Task';
 import { useNavigate } from 'react-router-dom';
+import { AllContext } from '../Context/AllContext';
 
 
 const Home = () => {
 
   const navigate = useNavigate();
+
+  const { userData } = useContext(AllContext)
   
 
   return (
@@ -16,7 +19,7 @@ const Home = () => {
     <div>
 
       <div className='flex gap-10 items-center justify-start'>
-        <h1 className='text-[19px]'>Welcome, Jane</h1>
+        <h1 className='text-[19px]'>Welcome, {userData?.name}</h1>
       </div>
 
       <div className='flex gap-4 mt-8'>

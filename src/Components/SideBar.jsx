@@ -23,6 +23,7 @@ import SendMoney from "../pages/SendMoney";
 import Login_Res from "./Login_Res";
 import { AllContext } from "../Context/AllContext";
 import { toast } from "react-toastify";
+import MyProfile from "../pages/MyProfile";
 
 const Sidebar = (props) => {
 
@@ -198,7 +199,7 @@ const Sidebar = (props) => {
               {userDropdown && (
                 <div className="absolute right-0 mt-2 bg-white shadow-md rounded-lg w-40">
                   <ul className="text-sm">
-                    <li className="p-2 cursor-pointer hover:bg-gray-200">
+                    <li onClick={() => navigate("/my-profile")} className="p-2 cursor-pointer hover:bg-gray-200">
                       Profile
                     </li>
                     <li className="p-2 cursor-pointer hover:bg-gray-200">
@@ -234,6 +235,7 @@ const Sidebar = (props) => {
             <Route path="/task" element={<Task />} />
             <Route path="/send-money" element={<SendMoney />} />
             <Route path="/bill" element = {<Bill />} />
+            <Route path="/my-profile" element={<MyProfile />}/>
           </Routes>
         </div>
       </div>

@@ -2,30 +2,11 @@ import React, { useContext } from "react";
 import { ChevronDown , Filter , Download, FileText} from "lucide-react";
 import { AllContext } from "../Context/AllContext";
 
-const transactions = [
-  { date: "Mar 4", name: "Payment from Acme Corp", amount: 200.0, account: "AR", status: "Success", method: "Request or Invoice" },
-  { date: "Mar 4", name: "Payment from NASA", amount: 419.0, account: "AR", status: "Failed", method: "Request or Invoice" },
-  { date: "Mar 4", name: "Mercury Working Capital", amount: -2200.0, account: "Ops / Payroll", method: "Working Capital" },
-  { date: "Mar 4", name: "Lily's Eatery", amount: 0.93, account: "Ops / Payroll", method: "Jane B. ••1234" },
-  { date: "Mar 4", name: "From AR", amount: 54810.16, account: "Ops / Payroll", method: "Transfer" },
-  { date: "Mar 4", name: "To Ops / Payroll", amount: -54810.16, account: "AR", method: "Transfer" },
-  { date: "Mar 4", name: "Mercury Working Capital", amount: -2200.0, account: "Ops / Payroll", method: "Working Capital" },
-  { date: "Mar 4", name: "Lily's Eatery", amount: 0.93, account: "Ops / Payroll", method: "Jane B. ••1234" },
-  { date: "Mar 4", name: "From AR", amount: 54810.16, account: "Ops / Payroll", method: "Transfer" },
-  { date: "Mar 4", name: "To Ops / Payroll", amount: -54810.16, account: "AR", method: "Transfer" },
-  { date: "Mar 4", name: "Mercury Working Capital", amount: -2200.0, account: "Ops / Payroll", method: "Working Capital" },
-  { date: "Mar 4", name: "Lily's Eatery", amount: 0.93, account: "Ops / Payroll", method: "Jane B. ••1234" },
-  { date: "Mar 4", name: "From AR", amount: 54810.16, account: "Ops / Payroll", method: "Transfer" },
-  { date: "Mar 4", name: "To Ops / Payroll", amount: -54810.16, account: "AR", method: "Transfer" },
-  { date: "Mar 4", name: "Mercury Working Capital", amount: -2200.0, account: "Ops / Payroll", method: "Working Capital" },
-  { date: "Mar 4", name: "Lily's Eatery", amount: 0.93, account: "Ops / Payroll", method: "Jane B. ••1234" },
-  { date: "Mar 4", name: "From AR", amount: 54810.16, account: "Ops / Payroll", method: "Transfer" },
-  { date: "Mar 4", name: "To Ops / Payroll", amount: -54810.16, account: "AR", method: "Transfer" },
-];
+
 
 const MainTransaction = () => {
 
-  const { currency } = useContext(AllContext)
+  const { currency , userTransactions } = useContext(AllContext)
 
   return (
 
@@ -75,26 +56,67 @@ const MainTransaction = () => {
 
       </div>
       
-      <div className="bg-white p-4">
-        <div className="flex font-semibold border-b pb-2 mb-2">
-          <span className="w-1/4">Date</span>
-          <span className="w-1/4">To/From</span>
-          <span className="w-1/4">Amount</span>
-          <span className="w-1/4">Account</span>
-        </div>
-        {transactions.map((transaction, index) => (
-          <div key={index} className="flex items-center py-2 border-b">
-            <span className="w-1/4 text-gray-600">{transaction.date}</span>
-            <span className="w-1/4">{transaction.name}</span>
-            <span
-              className={`w-1/4 font-medium ${transaction.amount < 0 ? "text-red-500" : "text-green-500"}`}
-            >
-              {transaction.amount < 0 ? "-" : ""}{currency}{Math.abs(transaction.amount).toFixed(2)}
-            </span>
-            <span className="w-1/4 text-gray-600">{transaction.account}</span>
-          </div>
-        ))}
+      <div className="bg-white rounded-lg overflow-x-auto">
+        <table className="w-full border-collapse">
+
+          <thead>
+            <tr className="text-gray-700 text-sm border-b">
+              <th className="p-3 text-left">Date</th>
+         
+              <th className="p-3 text-left">To Email</th>
+              <th className="p-4 text-left">Amount</th>
+              <th className="p-3 text-left">Description</th>
+              <th className="p-3 text-left">Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {[...userTransactions]
+              .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+              .map((txn) => (
+                <tr key={txn.id} className="text-gray-800 hover:bg-gray-50 transition">
+                
+                  <td className="p-3 border-b">
+                    {new Intl.DateTimeFormat("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    }).format(new Date(txn.created_at))}
+                  </td>
+
+                
+              
+
+                  <td className="p-3 border-b">
+                  {txn?.to_email}
+                  </td>
+                  
+
+                
+                  <td className={`p-3 border-b font-medium ${txn.type === "debit" ? "text-red-600" : "text-green-600"}`}>
+                    {txn.type === "debit" ? `- ${currency}${txn.amount}` : `+ ${currency}${txn.amount}`}
+                  </td>
+
+                  
+                  <td className="p-3 border-b">{txn.description || "N/A"}</td>
+
+                 
+                  <td className="p-3 border-b">
+                    {txn.status === "failed" ? (
+                      <span className="text-red-500 text-xs bg-red-100 px-2 py-1 rounded">Failed</span>
+                    ) : (
+                      <span className="text-green-500 text-xs bg-green-100 px-2 py-1 rounded">Success</span>
+                    )}
+                  </td>
+                </tr>
+
+              ))}
+          </tbody>
+        </table>
       </div>
+
     </div>
   );
 };

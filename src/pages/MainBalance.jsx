@@ -19,7 +19,7 @@ const MainBalance = () => {
 
   const timeOptions = ["Last 7 days", "Last 30 days", "Last 90 days"];
 
-  const { currency } = useContext(AllContext)
+  const { currency , userData } = useContext(AllContext)
 
   return (
 
@@ -55,7 +55,7 @@ const MainBalance = () => {
         {isLineChart ? (
           <>
             <h1 className="text-[28px] text-[#1e1e2a] font-normal mt-2">
-              {currency} 5,144,707<span className="text-[18px] align-super">.08</span>
+              {currency} {userData?.balance}<span className="text-[18px] align-super">.00</span>
             </h1>
 
             <div className="flex justify-between mt-4">
@@ -63,7 +63,7 @@ const MainBalance = () => {
                 Total available
               </p>
               <h2 className="text-[15px] text-[#363644] font-normal">
-              {currency} 5,144,707 <span className="text-[11px] align-super">.08</span>
+              {currency} {userData?.balance} <span className="text-[11px] align-super">.00</span>
               </h2>
             </div>
 
@@ -73,7 +73,7 @@ const MainBalance = () => {
                   Current checking and savings total
                 </span>
                 <span className="text-[#535461] text-[13px]">
-                {currency} 4,944,707.08
+                {currency} 0.00
                 </span>
               </p>
               <p className="flex justify-between">
@@ -84,7 +84,7 @@ const MainBalance = () => {
               </p>
               <p className="flex justify-between">
                 <span className="text-[#535461] text-[13px]">Treasury</span>
-                <span className="text-[#535461] text-[13px]">{currency} 200,000.00</span>
+                <span className="text-[#535461] text-[13px]">{currency} 0.00</span>
               </p>
             </div>
 
@@ -105,7 +105,7 @@ const MainBalance = () => {
         ) : (
           <>
             <h1 className="text-[28px] text-[#1e1e2a] font-normal mt-2">
-            {currency} 5,144,707<span className="text-[18px] align-super">.08</span>
+            {currency} {userData?.balance}<span className="text-[18px] align-super">.00</span>
             </h1>
 
             <div className="flex justify-between mt-2 text-sm">
@@ -201,10 +201,10 @@ const MainBalance = () => {
 
         <div className="mt-4 space-y-3">
           {[
-            { name: "Credit Card", amount: `${currency} 12,505.87`, logo: <Frown /> },
-            { name: "Treasury", amount: `${currency} 200,000.00`, logo: <Frown /> },
-            { name: "Ops / Payroll", amount: `${currency} 2,023,267.12`, logo: <Frown /> },
-            { name: "AP", amount: `${currency} 226,767.82`, logo: <Frown /> },
+            { name: "Credit Card", amount: `${currency} 0.00`, logo: <Frown /> },
+            { name: "Treasury", amount: `${currency} 0.00`, logo: <Frown /> },
+            { name: "Ops / Payroll", amount: `${currency} 0.00`, logo: <Frown /> },
+            { name: "AP", amount: `${currency} 0.00`, logo: <Frown /> },
             { name: "AR", amount: `${currency} 0.00`, logo: <Frown /> },
           ].map((account, index) => (
             <div key={index} className="flex justify-between hover:bg-gray-200 p-2">
